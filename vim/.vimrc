@@ -18,10 +18,11 @@ Plugin 'flazz/vim-colorschemes'
 "Plugin 'wolfgangmehner/lua-support'
 Plugin 'junegunn/fzf.vim'
 Plugin 'itchyny/lightline.vim'
-Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'terryma/vim-multiple-cursors'
 Plugin 'w0rp/ale'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'majutsushi/tagbar'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -64,9 +65,13 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ }
 
+" git gutter update
+set updatetime=100
+
 " mappings
 nnoremap <C-o> :NERDTree<CR>
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
+nmap <F8> :TagbarToggle<CR>
