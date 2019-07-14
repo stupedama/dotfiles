@@ -1,0 +1,26 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+#4 space indentation
+[*.{erl,js,rs,rb,rex,txt,java,vim,frag,vert,sh,enc}]
+indent_style = space
+indent_size = 4
+
+#3 space indentation
+[*.{py}]
+indent_style = space
+indent_size =3
+
+#2 space indentation
+[*.{c,cpp,tex,bib,cl,h,hpp,pde,ino,wiki}]
+indent_style = space
+indent_size = 4
