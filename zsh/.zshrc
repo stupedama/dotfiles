@@ -4,6 +4,8 @@
 # make beutiful colors in vim with tux
 alias tmux="TERM=screen-256color-bce tmux"
 
+# vim is now neovim
+alias vim="nvim"
 # Path to your oh-my-zsh installation.
   export ZSH="/home/fredrik/.oh-my-zsh"
 

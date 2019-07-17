@@ -9,22 +9,23 @@ call plug#begin('~/.vim/plugged')
 " Plugins
 Plug 'scrooloose/nerdtree'
 "Plugin 'Valloric/YouCompleteMe' -- need to get the clang working
+Plug 'tpope/vim-fugitive'
+Plug 'mbbill/undotree'
 Plug 'flazz/vim-colorschemes'
 "Plugin 'wolfgangmehner/lua-support'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 "Plug 'terryma/vim-multiple-cursors'
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dracula/vim', {'as': 'dracula'}
+"Plug 'sirver/ultisnips'
+"Plug 'honza/vim-snippets'
 
-" ultisnips
-Plug 'sirver/ultisnips'
-" load snips
-Plug 'honza/vim-snippets'
 call plug#end()
 
 filetype plugin indent on    " required
@@ -47,12 +48,14 @@ set ruler                      " Shows the current line number at the bottom-rig
 set wildmenu                   " Great command-line completion, use `<Tab>` to move
 set encoding=utf-8
                                " around and `<CR>` to validate
+set termguicolors
+"set background=dark
 
-set background=dark
 " colors
 "colorscheme molokai
 "colorscheme Dim2
-colorscheme nordisk
+"colorscheme nordisk
+color dracula
 
 " show line numbers
 set number
@@ -70,40 +73,31 @@ let g:lightline = {
 " git gutter update
 set updatetime=100
 
+" ultisnips
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
+
+" undotree
+set undodir=~/.vim/undo/
+set undofile
+
 " editorconfig
 "let g:EditorConfig_verbose=1
 
-" ale ignore c and cpp
-"let g:ale_linters = {'c': [], 'cpp': []}
-" only use linters that uses compile_commands.json
-"let g:ale_linters.cpp = ['clangcheck', 'clangtidy', 'cppcheck']
-"
-" " various options for clang_complete
-set concealcursor=inv
-let g:clang_snippets = 1
-set completeopt=menu,longest
-let g:clang_complete_optional_args_in_snippets = 1
-let g:clang_trailing_placeholder = 1
-
-
 " mappings
-nnoremap <C-o> :NERDTree<CR>
+nnoremap <F9> :NERDTree<CR>
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 nmap <F8> :TagbarToggle<CR>
-
-"" Ultisnips configuration
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<F9>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsSnippetsDir = "/home/fredrik/.vim/bundle/vim-snippets/snippets"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+nnoremap <F7> :UndotreeToggle<CR>
 
 """""""" coc setup
 " if hidden is not set, TextEdit might fail.
@@ -115,9 +109,6 @@ set nowritebackup
 
 " Better display for messages
 set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
