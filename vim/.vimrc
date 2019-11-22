@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugged')
 
 " Plugins
 Plug 'scrooloose/nerdtree'
-"Plugin 'Valloric/YouCompleteMe' -- need to get the clang working
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 Plug 'flazz/vim-colorschemes'
@@ -16,15 +15,23 @@ Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 "Plug 'terryma/vim-multiple-cursors'
-"Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim'
+Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'jeetsukumaran/vim-buffergator'
 Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dracula/vim', {'as': 'dracula'}
-"Plug 'sirver/ultisnips'
-"Plug 'honza/vim-snippets'
+Plug 'mhartington/oceanic-next'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+
+Plug 'hail2u/vim-css3-syntax'
+Plug 'unkiwii/vim-nerdtree-sync'
 
 call plug#end()
 
@@ -32,6 +39,7 @@ filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
 
 " `matchit.vim` is built-in so let's enable it!
@@ -47,21 +55,34 @@ set ruler                      " Shows the current line number at the bottom-rig
                                " of the screen.
 set wildmenu                   " Great command-line completion, use `<Tab>` to move
 set encoding=utf-8
+let mapleader = ","
+
+" own keybinding
+noremap <leader>w :w<cr>
                                " around and `<CR>` to validate
-set termguicolors
+"set termguicolors
 "set background=dark
+
+set t_Co=256
+set t_ut=
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 " colors
 "colorscheme molokai
 "colorscheme Dim2
 "colorscheme nordisk
-color dracula
-
+"autocmd BufEnter * colorscheme dracula
+"autocmd BufEnter *.js,*.css colorscheme OceanicNext
+"autocmd BufEnter *.js,*.css,*.rb,*.html colorscheme afterglow
+"color dracula
+colorscheme afterglow
 " show line numbers
 set number
 
 " dont insert template scripts from lua-support plugin
-let g:Lua_InsertFileProlog = 'no'
+"let g:Lua_InsertFileProlog = 'no'
 
 " for lightline
 set laststatus=2
@@ -91,13 +112,15 @@ set undofile
 "let g:EditorConfig_verbose=1
 
 " mappings
-nnoremap <F9> :NERDTree<CR>
+nnoremap <F7> :NERDTree<CR>
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 nmap <F8> :TagbarToggle<CR>
-nnoremap <F7> :UndotreeToggle<CR>
+"nnoremap <F7> :UndotreeToggle<CR>
+nmap <F9> :UndotreeToggle<CR>
+nmap <F6> :BuffergatorOpen<CR>
 
 """""""" coc setup
 " if hidden is not set, TextEdit might fail.
@@ -218,3 +241,11 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" FORMATTERS
+au FileType javascript setlocal formatprg=prettier
+au FileType javascript.jsx setlocal formatprg=prettier
+au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+au FileType html setlocal formatprg=js-beautify\ --type\ html
+au FileType scss setlocal formatprg=prettier\ --parser\ css
+au FileType css setlocal formatprg=prettier\ --parser\ css
