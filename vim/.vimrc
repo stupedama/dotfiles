@@ -1,50 +1,31 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible	" be improved, required
+filetype off		" required
 
 " enable fzf
 set rtp+=/usr/bin/fzf
 
+" Enable Plug
 call plug#begin('~/.vim/plugged')
-
 " Plugins
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
-Plug 'flazz/vim-colorschemes'
-"Plugin 'wolfgangmehner/lua-support'
-Plug 'junegunn/fzf.vim'
-Plug 'itchyny/lightline.vim'
-"Plug 'terryma/vim-multiple-cursors'
-Plug 'jiangmiao/auto-pairs'
-Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'majutsushi/tagbar'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dracula/vim', {'as': 'dracula'}
-Plug 'mhartington/oceanic-next'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'jeetsukumaran/vim-buffergator'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-
-Plug 'hail2u/vim-css3-syntax'
-Plug 'unkiwii/vim-nerdtree-sync'
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tomasiser/vim-code-dark'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-syntax on
-
-" `matchit.vim` is built-in so let's enable it!
-" Hit `%` on `if` to jump to `else`.
-runtime macros/matchit.vim
+filetype plugin indent on
+" to ignore plugin indent changes, insted use:
+" filetype plugin on
 
 " various settings
 set autoindent                 " Minimal automatic indenting for any filetype.
@@ -54,93 +35,94 @@ set incsearch                  " Incremental search, hit `<CR>` to stop.
 set ruler                      " Shows the current line number at the bottom-right
                                " of the screen.
 set wildmenu                   " Great command-line completion, use `<Tab>` to move
-set encoding=utf-8
-let mapleader = ","
-
-" own keybinding
-noremap <leader>w :w<cr>
-                               " around and `<CR>` to validate
-"set termguicolors
 "set background=dark
-
+"syntax on
+set encoding=utf-8
+set number
+let mapleader = ","
 set t_Co=256
 set t_ut=
 if (has("termguicolors"))
     set termguicolors
 endif
 
+" own keybinding
+
+" around and `<CR>` to validate
+
 " colors
-"colorscheme molokai
-"colorscheme Dim2
-"colorscheme nordisk
-"autocmd BufEnter * colorscheme dracula
-"autocmd BufEnter *.js,*.css colorscheme OceanicNext
-"autocmd BufEnter *.js,*.css,*.rb,*.html colorscheme afterglow
 "color dracula
-colorscheme afterglow
-" show line numbers
-set number
+colorscheme codedark
 
-" dont insert template scripts from lua-support plugin
-"let g:Lua_InsertFileProlog = 'no'
+" keybindings
+noremap <leader>w :w<cr>
+noremap <F7> :NERDTree<CR>
+noremap <F8> :TagbarToggle<CR>
+noremap <F9> :UndotreeToggle<CR>
+noremap <F6> :BuffergatorOpen<CR>
 
-" for lightline
-set laststatus=2
-
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ }
-
-" git gutter update
-set updatetime=100
-
-" ultisnips
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
-
-" undotree
-set undodir=~/.vim/undo/
-set undofile
-
-" editorconfig
-"let g:EditorConfig_verbose=1
-
-" mappings
-nnoremap <F7> :NERDTree<CR>
+"" controls
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
-nmap <F8> :TagbarToggle<CR>
-"nnoremap <F7> :UndotreeToggle<CR>
-nmap <F9> :UndotreeToggle<CR>
-nmap <F6> :BuffergatorOpen<CR>
 
-"""""""" coc setup
-" if hidden is not set, TextEdit might fail.
+" Plugin settings
+
+" editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+
+"git gutter update
+set updatetime=100
+
+" lightline
+set laststatus=2
+
+let g:lightline = {
+      \ 'colorscheme': 'codedark',
+      \ }
+" undotree
+set undodir=~/.vim/undo/
+set undofile
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_cpp_compiler_options = '-std=c++17'
+
+""""""""""" coc setup
+
+" TextEdit might fail if hidden is not set.
 set hidden
 
-" Some servers have issues with backup files, see #649
+" Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
 
-" Better display for messages
+" Give more space for displaying messages.
 set cmdheight=2
 
-" don't give |ins-completion-menu| messages.
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-" always show signcolumns
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
 set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -155,21 +137,26 @@ endfunction
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Remap keys for gotos
+" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window
+" Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -180,13 +167,13 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
+" Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
+" Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
+" Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
@@ -194,58 +181,63 @@ augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
+  " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap for do codeAction of current line
+" Remap keys for applying codeAction to the current line.
 nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
+" Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for selections ranges.
+" NOTE: Requires 'textDocument/selectionRange' support from the language server.
+" coc-tsserver, coc-python are the examples of servers that support it.
 nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
-" Use `:Format` to format current buffer
+" Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
-" Use `:Fold` to fold current buffer
+" Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" use `:OR` for organize import of current buffer
+" Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Using CocList
-" Show all diagnostics
+" Mappings using CoCList:
+" Show all diagnostics.
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
+" Manage extensions.
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
+" Show commands.
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
+" Find symbol of current document.
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
+" Search workspace symbols.
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
+" Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-" FORMATTERS
-au FileType javascript setlocal formatprg=prettier
-au FileType javascript.jsx setlocal formatprg=prettier
-au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
-au FileType html setlocal formatprg=js-beautify\ --type\ html
-au FileType scss setlocal formatprg=prettier\ --parser\ css
-au FileType css setlocal formatprg=prettier\ --parser\ css
+""""""""""" end coc setup
