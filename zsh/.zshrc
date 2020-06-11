@@ -106,10 +106,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # ping homeserver
 alias pp="ping 192.168.100.1"
-
-# the fuck
-eval $(thefuck --alias)
-
+alias xf=startxfce4
 # pywal
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
