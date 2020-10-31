@@ -45,6 +45,7 @@ set t_ut=
 if (has("termguicolors"))
     set termguicolors
 endif
+set list listchars=tab:>\ ,trail:-,eol:$ "show newline chars
 
 " own keybinding
 
