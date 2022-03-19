@@ -19,13 +19,16 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tomasiser/vim-code-dark'
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
+"Plug 'maxmellon/vim-jsx-pretty'
+"Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'othree/yajs.vim'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
-
-filetype plugin indent on
 " to ignore plugin indent changes, insted use:
-" filetype plugin on
+ filetype plugin on
 
 " various settings
 set autoindent                 " Minimal automatic indenting for any filetype.
@@ -37,6 +40,7 @@ set ruler                      " Shows the current line number at the bottom-rig
 set wildmenu                   " Great command-line completion, use `<Tab>` to move
 "set background=dark
 "syntax on
+set expandtab "use spaces not tabs
 set encoding=utf-8
 set number
 let mapleader = ","
@@ -45,7 +49,10 @@ set t_ut=
 if (has("termguicolors"))
     set termguicolors
 endif
-set list listchars=tab:>\ ,trail:-,eol:$ "show newline chars
+
+" rust setup
+syntax enable
+filetype plugin indent on
 
 " own keybinding
 
@@ -241,4 +248,12 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+
 """"""""""" end coc setup
+
+"" syntastic config
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_check_on_open=1
