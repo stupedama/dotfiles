@@ -67,7 +67,7 @@ noremap <leader>w :w<cr>
 noremap <F7> :NERDTree<CR>
 noremap <F8> :TagbarToggle<CR>
 noremap <F9> :UndotreeToggle<CR>
-noremap <F6> :BuffergatorOpen<CR>
+noremap <F6> :BuffergatorToggle<CR>
 
 "" controls
 nmap <C-h> <C-w>h
@@ -257,3 +257,5 @@ let g:coc_global_extensions = [
 "" syntastic config
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_check_on_open=1
+
+let g:buffergator_viewport_split_policy = "T"
