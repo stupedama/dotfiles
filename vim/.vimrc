@@ -4,6 +4,10 @@ filetype off		" required
 " enable fzf
 set rtp+=/usr/bin/fzf
 
+" keyboard timeout
+set timeoutlen=50
+set ttimeoutlen=5
+
 " Enable Plug
 call plug#begin('~/.vim/plugged')
 " Plugins
@@ -22,8 +26,8 @@ Plug 'tomasiser/vim-code-dark'
 "Plug 'vim-syntastic/syntastic'
 "Plug 'maxmellon/vim-jsx-pretty'
 "Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'othree/yajs.vim'
+"Plug 'mxw/vim-jsx'
+"Plug 'othree/yajs.vim'
 Plug 'rust-lang/rust.vim'
 call plug#end()
 
@@ -88,10 +92,10 @@ set updatetime=100
 set laststatus=2
 
 let g:lightline = {
-      \ 'colorscheme': 'codedark',
+      \ 'colorscheme': 'dracula',
       \ }
 " undotree
-set undodir=~/.vim/undo/
+set undodir=~/.config/nvim/undo/
 set undofile
 
 " syntastic
