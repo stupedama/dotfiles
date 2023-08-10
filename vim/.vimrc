@@ -17,6 +17,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 " keybindings
