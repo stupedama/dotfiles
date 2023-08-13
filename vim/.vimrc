@@ -17,7 +17,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
+Plug 'raimondi/delimitmate'
 call plug#end()
 
 " keybindings
@@ -34,6 +35,10 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
 " Plugin settings
+
+" delimitmate
+let delimitMate_matchpairs = "(:),[:],{:}"
+
 
 " lightline
 set laststatus=2
