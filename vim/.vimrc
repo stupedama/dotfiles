@@ -19,6 +19,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'ludovicchabant/vim-gutentags'
 "Plug 'jiangmiao/auto-pairs'
 Plug 'raimondi/delimitmate'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " keybindings
