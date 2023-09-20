@@ -8,26 +8,31 @@ set rtp+=/usr/bin/fzf
 call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'scrooloose/nerdtree'
 Plug 'mbbill/undotree'
 Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'sheerun/vim-polyglot'
+Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'ludovicchabant/vim-gutentags'
-"Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-vinegar'
+Plug 'jiangmiao/auto-pairs'
 Plug 'raimondi/delimitmate'
-Plug 'tpope/vim-fugitive'
+Plug 'bling/vim-bufferline'
 call plug#end()
 
 " keybindings
 noremap <leader>w :w<cr>
-noremap <F7> :NERDTree<CR>
+noremap <F6> :BuffergatorToggle<CR>
+noremap <F7> :NERDTreeFind<CR>
 noremap <F8> :TagbarToggle<CR>
 noremap <F9> :UndotreeToggle<CR>
-noremap <F6> :BuffergatorToggle<CR>
+noremap <F10> :tabnext<CR>
+noremap <F11> :tabclose<CR>
+
+map <leader>r :NERDTreeFind<cr>
 
 " controls
 nmap <C-h> <C-w>h
@@ -37,9 +42,14 @@ nmap <C-l> <C-w>l
 
 " Plugin settings
 
+" NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " delimitmate
 let delimitMate_matchpairs = "(:),[:],{:}"
 
+" netrw
+"let g:netrw_winsize = 25
 
 " lightline
 set laststatus=2
