@@ -9,7 +9,6 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'mbbill/undotree'
-Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'sheerun/vim-polyglot'
@@ -34,13 +33,38 @@ noremap <F11> :tabclose<CR>
 
 map <leader>r :NERDTreeFind<cr>
 
-" controls
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
+"colorscheme catppuccin catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+colorscheme catppuccin-macchiato
+
+" various settings
+syntax enable
+filetype plugin indent on
+set autoindent                 " Minimal automatic indenting for any filetype.
+set backspace=indent,eol,start " Proper backspace behavior.
+set hidden                     " Possibility to have more than one unsaved buffers.
+set incsearch                  " Incremental search, hit `<CR>` to stop.
+set ruler                      " Shows the current line number at the bottom-right
+                               " of the screen.
+set wildmenu                   " Great command-line completion, use `<Tab>` to move
+set background=dark
+syntax on
+set expandtab "use spaces not tabs
+set encoding=utf-8
+set number
+set t_Co=256
+set t_ut=
+set updatetime=300
+set signcolumn=yes
+
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 " Plugin settings
+
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
 
 " NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -62,34 +86,6 @@ let g:lightline = {
 set undodir=~/.config/vim/undo/
 set undofile
 
-"colorscheme catppuccin catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
-colorscheme catppuccin-mocha
-
-" various settings
-syntax enable
-filetype plugin indent on
-set autoindent                 " Minimal automatic indenting for any filetype.
-set backspace=indent,eol,start " Proper backspace behavior.
-set hidden                     " Possibility to have more than one unsaved buffers.
-set incsearch                  " Incremental search, hit `<CR>` to stop.
-set ruler                      " Shows the current line number at the bottom-right
-                               " of the screen.
-set wildmenu                   " Great command-line completion, use `<Tab>` to move
-"set background=dark
-"syntax on
-set expandtab "use spaces not tabs
-set encoding=utf-8
-set number
-set t_Co=256
-set t_ut=
-set updatetime=300
-set signcolumn=yes
-
-if (has("termguicolors"))
-    set termguicolors
-endif
-
-" coc config
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
 set encoding=utf-8
@@ -235,18 +231,18 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics
-nnoremap <silent><nowait> <leader>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent><nowait> <leader>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent><nowait> <leader>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent><nowait> <leader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item
-nnoremap <silent><nowait> <leader>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item
-nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
