@@ -17,24 +17,26 @@ set signcolumn=yes " coc.nvim needs this
 " polygot, we use editorconfig for this
 let g:polyglot_disabled = ['autoindent']
 
+
 call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot' " language packs/highlights code
 Plug 'ludovicchabant/vim-gutentags' " create tags :tag function
 Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
-Plug 'bling/vim-bufferline'
-Plug 'jeetsukumaran/vim-buffergator'
+Plug 'preservim/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 colorscheme embark
 
 " keybindings
 noremap <leader>w :w<cr>
-noremap <F6> :BuffergatorToggle<CR>
+noremap <F6> :ls<CR>
 noremap <F7> :Explore<CR>
 noremap <F8> :TagbarToggle<CR>
 noremap <F9> :UndotreeToggle<CR>
+nmap <Leader>C :ClangFormatAutoToggle<CR>
 
 if (has("termguicolors"))
     set termguicolors
@@ -49,6 +51,10 @@ let g:netrw_winsize = 25
 " undotree
 set undodir=~/.config/vim/undo/
 set undofile
+
+" clang-format
+autocmd FileType cpp ClangFormatAutoEnable
+autocmd FileType h ClangFormatAutoEnable
 
 " coc-nvim
 " Use tab for trigger completion with characters ahead and navigate
